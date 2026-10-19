@@ -1,0 +1,9 @@
+# Fence GAN Model Hyperparameters
+model_plugin: "fence_gan"
+latent_dim: 16
+gamma: 0.5           # Boundary probability target
+alpha: 0.1           # Dispersion loss weight
+beta: 1.0            # Strict boundary fence penalty weight
+epochs: 20
+batch_size: 128
+lr: 0.0002

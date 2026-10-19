@@ -1,0 +1,13 @@
+# TabDDPM Model Hyperparameters
+model_plugin: "tab_ddpm"
+timesteps: 100
+beta_start: 0.0001
+beta_end: 0.02
+time_dim: 32
+hidden_dim: 128
+epochs: 20
+batch_size: 128
+lr: 0.001
+synthesis:
+  perturb_timesteps: 15
+  drift_strength: 2.6

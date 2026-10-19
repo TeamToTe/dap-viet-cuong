@@ -1,0 +1,6 @@
+# SKAB Valve1 Industrial Circulation Benchmark Dataset
+dataset_plugin: "skab"
+data_dir: "./data"
+split_strategy:
+  train_runs: 9      # First 9 runs (100% normal data)
+  test_runs: 7       # Held-out 7 runs (normal + anomalies)

@@ -1,0 +1,12 @@
+# TVAE Model Hyperparameters
+model_plugin: "tvae"
+latent_dim: 8
+hidden_dims: [64, 32]
+beta: 0.05
+epochs: 20
+batch_size: 128
+lr: 0.001
+synthesis:
+  min_sigma: 2.5
+  max_sigma: 4.2
+  drift: 2.8

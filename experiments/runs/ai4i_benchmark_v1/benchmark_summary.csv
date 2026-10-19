@@ -1,0 +1,4 @@
+Model,Mean KS (↓),Mean Wasserstein (↓),Δ Pearson Fro (↓),Δ Spearman Fro (↓),Best Downstream F1 (↑),Best Downstream AUC (↑)
+tvae,0.2588,0.6318,1.194,1.229,0.262,0.771
+fence_gan,0.3653,0.7624,1.557,1.662,0.1212,0.4435
+tab_ddpm,0.4075,0.8375,0.758,0.958,0.1304,0.5677

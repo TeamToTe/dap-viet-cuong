@@ -1,0 +1,17 @@
+# Pipeline Master Configuration
+pipeline:
+  seed: 42
+  device: "auto"              # "cuda", "cpu", or "auto"
+  figure_dir: "figure"        # Output directory for publication charts
+  exp_dir: "experiments"      # Checkpoint and log directory
+  num_samples: 2000           # Number of synthetic anomalies to generate per model
+
+models:
+  - tvae
+  - fence_gan
+  - tab_ddpm
+
+metrics:
+  - fidelity
+  - correlation
+  - utility

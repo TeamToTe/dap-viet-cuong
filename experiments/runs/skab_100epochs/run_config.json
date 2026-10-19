@@ -1,0 +1,25 @@
+{
+  "run_name": "skab_100epochs",
+  "timestamp": "20261019_102245",
+  "dataset": "SKAB_Valve1",
+  "features": [
+    "Accelerometer1RMS",
+    "Accelerometer2RMS",
+    "Current",
+    "Pressure",
+    "Temperature",
+    "Thermocouple",
+    "Voltage",
+    "Volume Flow RateRMS"
+  ],
+  "models": [
+    "tvae",
+    "fence_gan",
+    "tab_ddpm"
+  ],
+  "epochs": 100,
+  "batch_size": 128,
+  "num_samples": 2000,
+  "seed": 42,
+  "total_duration_sec": 208.05
+}

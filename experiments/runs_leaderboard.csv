@@ -1,0 +1,13 @@
+Run_Name,Timestamp,Dataset,Model,Mean KS (↓),Mean Wasserstein (↓),Δ Pearson Fro (↓),Δ Spearman Fro (↓),Best Downstream F1 (↑),Best Downstream AUC (↑)
+skab_benchmark_v1,20261019_094423,SKAB_Valve1,tvae,0.4503,1.1143,2.504,2.523,0.5807,0.6882
+skab_benchmark_v1,20261019_094423,SKAB_Valve1,fence_gan,0.2856,0.7932,3.319,3.223,0.5252,0.5088
+skab_benchmark_v1,20261019_094423,SKAB_Valve1,tab_ddpm,0.3618,0.7956,1.249,1.27,0.5416,0.7252
+ai4i_benchmark_v1,20261019_094613,AI4I_Predictive_Maintenance,tvae,0.2588,0.6318,1.194,1.229,0.262,0.771
+ai4i_benchmark_v1,20261019_094613,AI4I_Predictive_Maintenance,fence_gan,0.3653,0.7624,1.557,1.662,0.1212,0.4435
+ai4i_benchmark_v1,20261019_094613,AI4I_Predictive_Maintenance,tab_ddpm,0.4075,0.8375,0.758,0.958,0.1304,0.5677
+skab_100epochs,20261019_102245,SKAB_Valve1,tvae,0.4209,1.071,2.425,2.44,0.6587,0.7913
+skab_100epochs,20261019_102245,SKAB_Valve1,fence_gan,0.3143,0.7426,1.466,1.42,0.6494,0.7335
+skab_100epochs,20261019_102245,SKAB_Valve1,tab_ddpm,0.344,0.7983,1.202,1.369,0.652,0.8017
+ai4i_100epochs,20261019_103055,AI4I_Predictive_Maintenance,tvae,0.4408,1.0357,0.498,0.82,0.3172,0.7966
+ai4i_100epochs,20261019_103055,AI4I_Predictive_Maintenance,fence_gan,0.373,0.7371,0.75,1.078,0.1687,0.5109
+ai4i_100epochs,20261019_103055,AI4I_Predictive_Maintenance,tab_ddpm,0.4,0.8204,0.712,0.99,0.1818,0.6023

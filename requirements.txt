@@ -1,0 +1,20 @@
+# Core Deep Learning & Numerics
+torch==2.11.0
+numpy==2.4.4
+scipy==1.18.1
+pandas==3.0.3
+
+# Machine Learning & Downstream Utility Classifiers
+scikit-learn==1.9.1
+joblib==1.6.0
+
+# Visualization & Reporting
+matplotlib==3.11.2
+seaborn==0.13.2
+tabulate==0.10.0
+PyYAML==6.0.3
+tqdm==4.67.3
+
+# Interactive Notebooks
+ipykernel==6.29.5
+ipython==8.32.0

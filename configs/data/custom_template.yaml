@@ -1,0 +1,10 @@
+# Template for adding ANY new industrial tabular dataset
+# Usage: python scripts/run_pipeline.py --csv data/raw/your_dataset.csv --target_col label
+dataset_plugin: "generic_csv"
+csv_path: "data/raw/your_dataset.csv"
+target_col: "anomaly"       # Name of the defect / anomaly column
+normal_val: 0               # Value corresponding to normal non-defect sample
+drop_cols:                  # Optional: metadata columns to ignore
+  - "timestamp"
+  - "id"
+test_size: 0.35             # Fraction to hold out for evaluation

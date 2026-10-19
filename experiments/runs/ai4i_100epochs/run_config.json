@@ -1,0 +1,22 @@
+{
+  "run_name": "ai4i_100epochs",
+  "timestamp": "20261019_103055",
+  "dataset": "AI4I_Predictive_Maintenance",
+  "features": [
+    "Air temperature [K]",
+    "Process temperature [K]",
+    "Rotational speed [rpm]",
+    "Torque [Nm]",
+    "Tool wear [min]"
+  ],
+  "models": [
+    "tvae",
+    "fence_gan",
+    "tab_ddpm"
+  ],
+  "epochs": 100,
+  "batch_size": 128,
+  "num_samples": 2000,
+  "seed": 42,
+  "total_duration_sec": 152.87
+}

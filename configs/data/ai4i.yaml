@@ -1,0 +1,12 @@
+# AI4I 2020 Predictive Maintenance Dataset
+dataset_plugin: "ai4i"
+data_dir: "./data"
+test_size: 0.30
+target_column: "Machine failure"
+normal_val: 0
+features:
+  - "Air temperature [K]"
+  - "Process temperature [K]"
+  - "Rotational speed [rpm]"
+  - "Torque [Nm]"
+  - "Tool wear [min]"
