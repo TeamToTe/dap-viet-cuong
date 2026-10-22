@@ -1,0 +1,63 @@
+Total pages: 8
+=== Page 1 Annotations (8) ===
+Type: (8, 'Highlight'), Rect: Rect(114.72799682617188, 71.6300048828125, 497.9779968261719, 157.61102294921875)
+Content: Chỉ viết hoa chữ "Đánh", "Benchmark" và "Khai" thôi nhé.
+Subject: Highlight
+Title: Viêt Đào Thế
+Selected Text: Đánh giá Benchmark Sinh Dữliệu Bất thường Dạng
+bảng trong Công nghiệp:
+Khai thác Mô hình Học sâu Học trên Dữliệu Chuẩn
+dưới Điều kiện Mất cân bằng Cực đoan
+---
+Type: (8, 'Highlight'), Rect: Rect(181.70700073242188, 206.0009765625, 276.70001220703125, 216.2130126953125)
+Content: Bỏ mục mã số sinh viên nhé.
+Subject: Highlight
+Title: Viêt Đào Thế
+Selected Text: Mã sốsinh viên / Email
+---
+Type: (8, 'Highlight'), Rect: Rect(193.26300048828125, 246.448974609375, 256.67498779296875, 256.6610107421875)
+Content: Bỏ mục mã số sinh viên.
+Subject: Highlight
+Title: Viêt Đào Thế
+Selected Text: Mã sốsinh viên
+---
+Type: (8, 'Highlight'), Rect: Rect(252.49099731445312, 298.8529968261719, 400.9129943847656, 309.06500244140625)
+Content: Môn học: DAP391m
+Subject: Highlight
+Title: Viêt Đào Thế
+Selected Text: Đồán Phân tích Dữliệu (DAP391m)
+---
+Type: (8, 'Highlight'), Rect: Rect(174.02200317382812, 404.74700927734375, 251.51400756835938, 415.27801513671875)
+Content: Bỏ số liệu này đi.
+Subject: Highlight
+Title: Viêt Đào Thế
+Selected Text: (< 3.5% mẫu lỗi).
+---
+Type: (8, 'Highlight'), Rect: Rect(207.12899780273438, 452.5679931640625, 459.14300537109375, 463.0989990234375)
+Content: thay đoạn này bằng "hệ thống"
+Subject: Highlight
+Title: Viêt Đào Thế
+Selected Text: khung đường ống thực nghiệm benchmark học sâu chuẩn hóa
+---
+Type: (8, 'Highlight'), Rect: Rect(164.2969970703125, 488.4330139160156, 204.86300659179688, 498.9639892578125)
+Content: Bỏ chữ normal.
+Subject: Highlight
+Title: Viêt Đào Thế
+Selected Text: (Normal).
+---
+Type: (8, 'Highlight'), Rect: Rect(133.06500244140625, 500.3890075683594, 479.6600036621094, 546.7850341796875)
+Content: Bỏ phần chú thích thuật toán.
+Subject: Highlight
+Title: Viêt Đào Thế
+Selected Text: (với cơ chếlấy mẫu đuôi siêu cầu Latent Tail Sampling và dịch chuyển định hướng),
+Fence GAN (với hàm mất mát Minimax bao vây hàng rào biên và lực đẩy chống sụp đổ
+mốt), và TabDDPM (khuếch tán khửnhiễu dạng bảng kết hợp dẫn hướng nhiễu nghịch
+đảo Perturbed Reverse Guidance). Toàn bộhệthống được thẩm định trên hai bộdữliệu
+---
+=== Page 3 Annotations (1) ===
+Type: (8, 'Highlight'), Rect: Rect(126.1240005493164, 647.614990234375, 391.2430114746094, 661.6629638671875)
+Content: Sửa thành "Phương pháp sinh dữ liệu bất thường bằng mô hình học sâu"
+Subject: Highlight
+Title: Viêt Đào Thế
+Selected Text: Phương pháp luận Sinh Dữliệu Bất thường Học sâu
+---

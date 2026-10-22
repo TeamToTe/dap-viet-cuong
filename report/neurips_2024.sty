@@ -1,0 +1,116 @@
+% neurips_2024.sty - NeurIPS style file for LaTeX2e
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{neurips_2024}[2024/05/01 NeurIPS 2024 submission/camera-ready style]
+
+% declare preprint option
+\newif\if@neuripsfinal\@neuripsfinalfalse
+\newif\if@preprint\@preprintfalse
+
+\DeclareOption{final}{\@neuripsfinaltrue}
+\DeclareOption{preprint}{\@preprinttrue}
+\DeclareOption{nonatbib}{\@nonatbibtrue}
+\ProcessOptions\relax
+
+% determine whether this is an anonymous submission or not
+\newif\if@submission\@submissiontrue
+\if@neuripsfinal\@submissionfalse\fi
+\if@preprint\@submissionfalse\fi
+
+% fonts: Times Roman font
+\RequirePackage{times}
+
+% margins
+\setlength{\paperheight}{11in}
+\setlength{\paperwidth}{8.5in}
+
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{5.5in}
+\setlength{\topmargin}{0.0in}
+\setlength{\headheight}{0.0in}
+\setlength{\headsep}{0.0in}
+\setlength{\footskip}{0.5in}
+
+\setlength{\oddsidemargin}{0.5in}
+\setlength{\evensidemargin}{0.5in}
+
+\flushbottom \sloppy
+
+% paragraph formatting
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt plus 1pt minus 1pt}
+
+% Section formatting
+\def\section{\@startsection{section}{1}{\z@}%
+  {-2.0ex plus -0.5ex minus -0.2ex}%
+  {1.5ex plus 0.3ex minus 0.2ex}%
+  {\normalfont\large\bfseries}}
+\def\subsection{\@startsection{subsection}{2}{\z@}%
+  {-1.8ex plus -0.5ex minus -0.2ex}%
+  {1.2ex plus 0.2ex minus 0.2ex}%
+  {\normalfont\normalsize\bfseries}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+  {-1.5ex plus -0.5ex minus -0.2ex}%
+  {1.0ex plus 0.2ex minus 0.2ex}%
+  {\normalfont\normalsize\bfseries}}
+\def\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {1.2ex plus 0.3ex minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries}}
+
+% Title & Author formatting
+\def\maketitle{%
+  \par
+  \begingroup
+    \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+    \def\@makefnmark{\hbox to\z@{$\m@th^{\@thefnmark}$\hss}}%
+    \long\def\@makefntext##1{\parindent 1em\noindent
+            \hbox to1.8em{\hss$\m@th^{\@thefnmark}$}##1}%
+    \if@twocolumn
+      \twocolumn[\@maketitle]%
+    \else
+      \newpage
+      \global\@topnum\z@
+      \@maketitle
+    \fi
+    \thispagestyle{plain}%
+    \@thanks
+  \endgroup
+  \setcounter{footnote}{0}%
+  \let\maketitle\relax
+  \let\@maketitle\relax
+  \gdef\@thanks{}\gdef\@author{}\gdef\@title{}
+}
+
+\def\@maketitle{%
+  \vbox{%
+    \hsize\textwidth
+    \linewidth\hsize
+    \centering
+    {\LARGE\bf \@title \par}
+    \vskip 0.2in
+    \def\And{%
+      \end{tabular}\hfil\linebreak[0]\hfil
+      \begin{tabular}[t]{c}\bf\rule{\z@}{24\p@}\ignorespaces%
+    }
+    \def\AND{%
+      \end{tabular}\hfil\linebreak[4]\hfil
+      \begin{tabular}[t]{c}\bf\rule{\z@}{24\p@}\ignorespaces%
+    }
+    \begin{tabular}[t]{c}\bf\rule{\z@}{24\p@}\ignorespaces
+      \@author
+    \end{tabular}%
+    \vskip 0.2in
+  }%
+}
+
+% Abstract
+\renewenvironment{abstract}%
+{%
+  \begin{center}%
+    {\large\bfseries Tóm tắt\vspace{-.5em}\vspace{\z@}}%
+  \end{center}%
+  \quotation
+}%
+{\par\endquotation}
+
+\endinput

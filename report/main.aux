@@ -1,0 +1,85 @@
+\relax 
+\providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
+\@nameuse{bbl@beforestart}
+\catcode `"\active 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{katser2021skab,matzka2020explainable}
+\citation{katser2021skab}
+\babel@aux{vietnamese}{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Giới thiệu \& Các Bộ Dữ liệu Công nghiệp Chuẩn}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro_data}{{1}{1}{Giới thiệu \& Các Bộ Dữ liệu Công nghiệp Chuẩn}{section.1}{}}
+\citation{matzka2020explainable}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Đặc tả kỹ thuật và ý nghĩa vật lý công nghiệp của các biến cảm biến trong benchmark.}}{2}{table.caption.3}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:datasets}{{1}{2}{Đặc tả kỹ thuật và ý nghĩa vật lý công nghiệp của các biến cảm biến trong benchmark}{table.caption.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Bộ dữ liệu 1: SKAB Valve1 (Skoltech Anomaly Benchmark).}{2}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bộ dữ liệu 2: AI4I 2020 Predictive Maintenance.}{2}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Kiến trúc Hệ thống \& Quy trình Thực nghiệm}{2}{section.2}\protected@file@percent }
+\newlabel{sec:pipeline}{{2}{2}{Kiến trúc Hệ thống \& Quy trình Thực nghiệm}{section.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Quy trình luồng thực thi đường ống thực nghiệm End-to-End 5 bước dựa trên kiến trúc Registry Pattern. Toàn bộ quá trình chuẩn hóa được cách ly triệt để nhằm chống rò rỉ dữ liệu (Data Leakage), kết hợp sinh mẫu dị biệt biên và đánh giá đa tầng tự động.}}{2}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:pipeline}{{1}{2}{Quy trình luồng thực thi đường ống thực nghiệm End-to-End 5 bước dựa trên kiến trúc Registry Pattern. Toàn bộ quá trình chuẩn hóa được cách ly triệt để nhằm chống rò rỉ dữ liệu (Data Leakage), kết hợp sinh mẫu dị biệt biên và đánh giá đa tầng tự động}{figure.caption.4}{}}
+\citation{xu2019modeling}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Mô hình Plugin Registry Pattern}{3}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Luồng thực thi End-to-End 5 bước}{3}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Phương pháp sinh dữ liệu bất thường bằng mô hình học sâu}{3}{section.3}\protected@file@percent }
+\newlabel{sec:models}{{3}{3}{Phương pháp sinh dữ liệu bất thường bằng mô hình học sâu}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Tabular Variational Autoencoder (TVAE)}{3}{subsection.3.1}\protected@file@percent }
+\newlabel{eq:tvae_loss}{{1}{3}{Tabular Variational Autoencoder (TVAE)}{equation.1}{}}
+\citation{ngo2019fence}
+\citation{kotelnikov2022tabddpm}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Kiến trúc mạng Tabular VAE và cơ chế sinh dị biệt. \textbf  {(a)} Cấu trúc Encoder, Reparameterization Trick và Decoder. \textbf  {(b)} Cơ chế lấy mẫu ngoài vỏ cầu đuôi phân phối (Latent Tail Sampling $2.5\sigma \leq r \leq 4.2\sigma $) kết hợp dịch chuyển định hướng $\Delta z$.}}{4}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:tvae_arch}{{2}{4}{Kiến trúc mạng Tabular VAE và cơ chế sinh dị biệt. \textbf {(a)} Cấu trúc Encoder, Reparameterization Trick và Decoder. \textbf {(b)} Cơ chế lấy mẫu ngoài vỏ cầu đuôi phân phối (Latent Tail Sampling $2.5\sigma \leq r \leq 4.2\sigma $) kết hợp dịch chuyển định hướng $\Delta z$}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Cơ chế Lấy mẫu Vỏ cầu Đuôi \& Dịch chuyển Định hướng (Hình~\ref {fig:tvae_arch}b).}{4}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Fence GAN: Ràng buộc Hàng rào Biên Minimax}{4}{subsection.3.2}\protected@file@percent }
+\newlabel{eq:fence_loss}{{3}{4}{Fence GAN: Ràng buộc Hàng rào Biên Minimax}{equation.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}TabDDPM: Khuếch tán Khử nhiễu Kết hợp Dẫn hướng Lỗi}{4}{subsection.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Kiến trúc mạng Fence GAN và cơ chế Hàng rào biên. \textbf  {(a)} Kiến trúc Generator và Discriminator kèm các hàm mất mát tương ứng. \textbf  {(b)} Vành đai hàng rào biên $D(x) \approx \gamma = 0.5$ và lực đẩy phân tán $\mathcal  {L}_{\text  {disp}}$ ngăn chặn sụp đổ mốt.}}{5}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:fence_arch}{{3}{5}{Kiến trúc mạng Fence GAN và cơ chế Hàng rào biên. \textbf {(a)} Kiến trúc Generator và Discriminator kèm các hàm mất mát tương ứng. \textbf {(b)} Vành đai hàng rào biên $D(x) \approx \gamma = 0.5$ và lực đẩy phân tán $\mathcal {L}_{\text {disp}}$ ngăn chặn sụp đổ mốt}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Đánh giá Thực nghiệm \& Thảo luận Chuyên sâu}{5}{section.4}\protected@file@percent }
+\newlabel{sec:experiments}{{4}{5}{Đánh giá Thực nghiệm \& Thảo luận Chuyên sâu}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Thiết lập Thực nghiệm \& Bộ thước đo 3 Tầng}{5}{subsection.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Kiến trúc TabDDPM và quy trình khuếch tán. \textbf  {(a)} Mạng Backbone tích hợp Sinusoidal Embedding và khối Residual. \textbf  {(b)} Quá trình khử nhiễu nghịch đảo kết hợp Perturbed Guidance tạo độ lệch trên các cảm biến xung yếu mà vẫn bảo toàn tương quan chéo.}}{6}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:tabddpm_arch}{{4}{6}{Kiến trúc TabDDPM và quy trình khuếch tán. \textbf {(a)} Mạng Backbone tích hợp Sinusoidal Embedding và khối Residual. \textbf {(b)} Quá trình khử nhiễu nghịch đảo kết hợp Perturbed Guidance tạo độ lệch trên các cảm biến xung yếu mà vẫn bảo toàn tương quan chéo}{figure.caption.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Bảng tổng hợp hiệu năng 3 tầng trên SKAB Valve1 và AI4I 2020 sau 100 Epochs.}}{6}{table.caption.9}\protected@file@percent }
+\newlabel{tab:leaderboard}{{2}{6}{Bảng tổng hợp hiệu năng 3 tầng trên SKAB Valve1 và AI4I 2020 sau 100 Epochs}{table.caption.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Phân tích Số liệu Định lượng}{6}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Trên trạm tuần hoàn SKAB Valve1.}{6}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Trên máy phay tiện CNC AI4I 2020.}{6}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Giải thích cơ chế Oracle và bản chất chỉ số $F_1$.}{6}{section*.14}\protected@file@percent }
+\citation{matzka2020explainable}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces So sánh tiện ích phân loại hạ nguồn trên tập Test thật (Bộ phân loại Random Forest; chỉ số $F_1$ là Binary $F_1$ tính riêng cho lớp sự cố bất thường $y=1$).}}{7}{table.caption.10}\protected@file@percent }
+\newlabel{tab:utility}{{3}{7}{So sánh tiện ích phân loại hạ nguồn trên tập Test thật (Bộ phân loại Random Forest; chỉ số $F_1$ là Binary $F_1$ tính riêng cho lớp sự cố bất thường $y=1$)}{table.caption.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Kiểm chứng Trực quan \& Thảo luận Chuyên sâu}{7}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bao phủ đa tạp trong không gian 2D PCA (Hình~\ref {fig:pca}).}{7}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bảo toàn quy luật vật lý giữa các cảm biến (Hình~\ref {fig:heatmaps_utility}a).}{7}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Quy luật đánh đổi giữa Độ tương đồng (Fidelity) và Tiện ích phát hiện lỗi (Utility).}{7}{section*.18}\protected@file@percent }
+\bibstyle{plain}
+\bibcite{breiman2001random}{{1}{}{{}}{{}}}
+\bibcite{friedman2001greedy}{{2}{}{{}}{{}}}
+\newlabel{fig:pca_skab}{{5a}{8}{Chiếu 2D PCA trên trạm tuần hoàn nước SKAB Valve1}{figure.caption.11}{}}
+\newlabel{sub@fig:pca_skab}{{a}{8}{Chiếu 2D PCA trên trạm tuần hoàn nước SKAB Valve1}{figure.caption.11}{}}
+\newlabel{fig:pca_ai4i}{{5b}{8}{Chiếu 2D PCA trên máy phay tiện CNC AI4I 2020}{figure.caption.11}{}}
+\newlabel{sub@fig:pca_ai4i}{{b}{8}{Chiếu 2D PCA trên máy phay tiện CNC AI4I 2020}{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Hình ảnh trực quan hóa không gian 2D PCA đối chứng giữa mẫu bình thường Normal (xanh lam), mẫu bất thường thật Real Anomaly (dấu x xám), và mẫu bất thường nhân tạo do từng mô hình sinh ra. Mỗi bộ dữ liệu được bố trí thành một hàng riêng biệt với kích thước tăng cường để quan sát rõ nét chi tiết phân bố đa tạp.}}{8}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:pca}{{5}{8}{Hình ảnh trực quan hóa không gian 2D PCA đối chứng giữa mẫu bình thường Normal (xanh lam), mẫu bất thường thật Real Anomaly (dấu x xám), và mẫu bất thường nhân tạo do từng mô hình sinh ra. Mỗi bộ dữ liệu được bố trí thành một hàng riêng biệt với kích thước tăng cường để quan sát rõ nét chi tiết phân bố đa tạp}{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {paragraph}{Ý nghĩa quyết định của việc Hiệu chuẩn Ngưỡng (Threshold Calibration).}{8}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Kết luận \& Hướng Phát triển}{8}{section.5}\protected@file@percent }
+\newlabel{sec:conclusion}{{5}{8}{Kết luận \& Hướng Phát triển}{section.5}{}}
+\bibcite{katser2021skab}{{3}{}{{}}{{}}}
+\bibcite{kingma2013auto}{{4}{}{{}}{{}}}
+\bibcite{kotelnikov2022tabddpm}{{5}{}{{}}{{}}}
+\bibcite{liu2008isolation}{{6}{}{{}}{{}}}
+\bibcite{matzka2020explainable}{{7}{}{{}}{{}}}
+\bibcite{ngo2019fence}{{8}{}{{}}{{}}}
+\bibcite{sohl2015deep}{{9}{}{{}}{{}}}
+\bibcite{xu2019modeling}{{10}{}{{}}{{}}}
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\newlabel{fig:corr}{{6a}{9}{Ma trận Nhiệt Pearson \& Sai số $\Delta \text {Fro}$}{figure.caption.15}{}}
+\newlabel{sub@fig:corr}{{a}{9}{Ma trận Nhiệt Pearson \& Sai số $\Delta \text {Fro}$}{figure.caption.15}{}}
+\newlabel{fig:utility_plot}{{6b}{9}{So sánh F1-Score các bộ phân loại hạ nguồn}{figure.caption.15}{}}
+\newlabel{sub@fig:utility_plot}{{b}{9}{So sánh F1-Score các bộ phân loại hạ nguồn}{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Kiểm chứng trực quan trên SKAB Valve1. \textbf  {(a)} Ma trận nhiệt tương quan cảm biến khẳng định TabDDPM duy trì tương quan vật lý vượt trội ($\Delta \text  {Fro} = 1.20$). \textbf  {(b)} Biểu đồ cột F1-Score so sánh Random Forest và Gradient Boosting giữa dữ liệu sinh với Baseline và Oracle.}}{9}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:heatmaps_utility}{{6}{9}{Kiểm chứng trực quan trên SKAB Valve1. \textbf {(a)} Ma trận nhiệt tương quan cảm biến khẳng định TabDDPM duy trì tương quan vật lý vượt trội ($\Delta \text {Fro} = 1.20$). \textbf {(b)} Biểu đồ cột F1-Score so sánh Random Forest và Gradient Boosting giữa dữ liệu sinh với Baseline và Oracle}{figure.caption.15}{}}
+\gdef \@abspage@last{9}

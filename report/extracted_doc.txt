@@ -1,0 +1,107 @@
+BÁO CÁO & KỊCH BẢN THUYẾT TRÌNH DỰ ÁN DAPPHẦN 1: DỮ LIỆU (DATA) & PHẦN 2: ĐƯỜNG ỐNG THỰC NGHIỆM (PIPELINE)
+Đề tài: Sinh dữ liệu bất thường dạng bảng cho dữ liệu công nghiệp sử dụng mô hình học sâu(Industrial Tabular Anomaly Synthesis Benchmark)
+Môn học & Kỳ học:
+DAP (Data Analytics Project) - Kỳ 4, FPT University
+Người thực hiện phần này:
+Thành viên phụ trách: Data Engineering & Pipeline Architecture
+Phạm vi trình bày:
+Phần 1: Dữ liệu (2 bộ dữ liệu công nghiệp) | Phần 2: Pipeline quy trình tổng thể
+TỔNG QUAN PHÂN CHIA NỘI DUNG THUYẾT TRÌNH CỦA NHÓM
+Theo góp ý của giảng viên, bài thuyết trình được chuẩn hóa theo cấu trúc logic từ Gốc (Dữ liệu) đến Ngọn (Ứng dụng & Kết quả):
+• Phần 1 - Data (Bạn trình bày): Bối cảnh mất cân bằng dữ liệu công nghiệp, giới thiệu chi tiết 2 bộ dữ liệu benchmark: SKAB Valve1 và AI4I 2020, ý nghĩa các biến cảm biến vật lý.
+• Phần 2 - Pipeline (Bạn trình bày): Kiến trúc hệ thống 'Everything is a Plugin', quy trình End-to-End 5 bước từ tiền xử lý, huấn luyện, sinh dị biệt biên, đến bộ đo 3 tầng và tự động trực quan hóa.
+• Phần 3 - Mô hình sinh (Bạn trong nhóm): Nguyên lý 3 mô hình sinh: TVAE (Outlier Tail Sampling), Fence GAN (Boundary Minimax Loss), TabDDPM (Perturbed Reverse Diffusion).
+• Phần 4 - Kết quả & Thảo luận (Bạn trong nhóm): Bảng số liệu đối chứng (Fidelity, Correlation, Utility), phân tích biểu đồ PCA, Heatmap, F1-Score so sánh với Baseline và Oracle.
+PHẦN 1: BÁO CÁO CHI TIẾT VỀ DỮ LIỆU (DATA OVERVIEW & EDA)
+1.1. Bối cảnh công nghiệp & Thách thức Extreme Class Imbalance
+Trong các hệ thống sản xuất công nghiệp 4.0 (Smart Factory, Automotive, CNC Machining, Water Circulation), máy móc được thiết kế để vận hành an toàn liên tục. Hơn 99% thời gian dữ liệu thu thập được là dữ liệu bình thường (OK / Normal). Dữ liệu hỏng hóc (Anomalies / Machine Failures) cực kỳ hiếm, khó thu thập, và rất nguy hiểm nếu cố ý phá hoại máy để lấy dữ liệu. Đây là bài toán mất cân bằng dữ liệu cực đoan (Extreme Class Imbalance). Vì vậy, dự án chọn cách tiếp cận: Chỉ học trên dữ liệu bình thường (100% OK samples), sau đó dùng AI sinh ra các mẫu dị biệt sát biên để huấn luyện bộ phát hiện lỗi.
+1.2. Bộ dữ liệu 1: SKAB (Skoltech Anomaly Benchmark - Valve1)
+Bộ dữ liệu benchmark chuẩn quốc tế được phát triển bởi Viện Khoa học và Công nghệ Skolkovo (Nga). Dữ liệu mô phỏng trạm tuần hoàn chất lỏng công nghiệp khép kín (Industrial Water Circulation Testbed) gồm bơm ly tâm, hệ thống van tiết lưu Valve1, đường ống thủy lực và mạng lưới cảm biến đa chiều đo liên tục với tần số 1 Hz.
+Tên biến cảm biến
+Đơn vị / Kiểu
+Ý nghĩa vật lý công nghiệp
+Accelerometer1RMS
+g (m/s²)
+Gia tốc rung động hiệu dụng trục chính gắn trên thân bơm/van
+Accelerometer2RMS
+g (m/s²)
+Gia tốc rung động thứ cấp đo rung lắc cộng hưởng trên bệ đỡ
+Current
+Ampe (A)
+Dòng điện tiêu thụ động cơ bơm (tăng vọt khi kẹt cánh bơm hoặc quá tải)
+Pressure
+Bar
+Áp suất chất lỏng trong đường ống trước/sau cụm van
+Temperature
+°C
+Nhiệt độ khối chất lỏng tuần hoàn trong hệ thống
+Thermocouple
+°C
+Nhiệt độ đo trực tiếp bằng cảm biến nhiệt ngẫu tại cụm truyền động van
+Voltage
+Volt (V)
+Điện áp lưới cung cấp cho hệ thống động cơ
+Volume Flow RateRMS
+m³/h
+Lưu lượng thể tích nước tuần hoàn qua van tiết lưu
+• Chiến lược phân chia Zero-Defect: Tập con Valve1 gồm 16 lần chạy (runs 0 đến 15). Nhóm chia 9 lần chạy đầu tiên làm Train (lọc nghiêm ngặt 100% mẫu anomaly == 0.0, mô hình không hề biết đến nhãn lỗi khi học). 7 lần chạy còn lại được giữ làm Test (chứa cả mẫu bình thường và lỗi kẹt van thực tế để đánh giá).
+1.3. Bộ dữ liệu 2: AI4I 2020 Predictive Maintenance Dataset
+Bộ dữ liệu phản ánh quy trình gia công cơ khí phay/tiện công nghiệp thực tế được đóng góp trên UCI Machine Learning Repository bởi Matzka (2020). Dữ liệu gồm đúng 10,000 dòng ghi nhận, trong đó chỉ có 339 mẫu máy hỏng (tỷ lệ lỗi thực tế chỉ 3.39%).
+Tên biến cảm biến
+Đơn vị đo
+Ý nghĩa kỹ thuật gia công
+Air temperature [K]
+Kelvin (~300 K)
+Nhiệt độ không khí phòng máy gia công
+Process temperature [K]
+Kelvin
+Nhiệt độ vùng ma sát giữa mũi dao và phôi kim loại
+Rotational speed [rpm]
+Vòng/phút
+Tốc độ quay trục chính (Spindle) gắn dao cụ
+Torque [Nm]
+Newton mét
+Mô-men xoắn tạo bởi động cơ truyền động
+Tool wear [min]
+Phút
+Thời gian dao cụ đã gia công liên tục (tích lũy mòn dao)
+• 5 hình thái hư hỏng cụ thể (Failure Modes): TWF (Mòn dao), HDF (Tản nhiệt kém do ma sát), PWF (Lỗi công suất - tích Torque × Speed), OSF (Quá tải lực kết hợp mòn dao), RNF (Sự cố ngẫu nhiên 0.1%).
+• Chiến lược phân chia: Phân tầng (Stratified split) 70% Train - 30% Test. Tập Train được lọc sạch 100% chỉ giữ mẫu Machine failure == 0. Tập Test giữ nguyên tỷ lệ tự nhiên để đánh giá công tâm nhất.
+PHẦN 2: BÁO CÁO CHI TIẾT ĐƯỜNG ỐNG THỰC NGHIỆM (PIPELINE ARCHITECTURE)
+2.1. Triết lý kiến trúc: 'Everything is a Plugin'
+Thay vì viết code đơn lẻ trong một file hay dồn vào Jupyter Notebook rất khó tái hiện, nhóm xây dựng hệ thống theo chuẩn kiến trúc công nghiệp Module hóa (Modular Plugin-based Architecture). Toàn bộ hệ thống quản lý qua Registry Pattern và Abstract Base Classes (ABC):
+• DATASET_REGISTRY: Tách riêng từng bộ dữ liệu thành plugin. Thêm dataset mới chỉ cần viết class kế thừa BaseDataset và gắn decorator @register_dataset('tên'). Pipeline tự nhận diện.
+• MODEL_REGISTRY: Quản lý các mô hình sinh (TVAE, Fence GAN, TabDDPM, WGAN...). Mọi mô hình tuân theo giao diện chuẩn: fit(X_train) và sample(n_samples).
+• METRIC_REGISTRY: Module hóa các bộ đo chất lượng: Fidelity (KS-test, Wasserstein), Correlation (Frobenius Norm), Downstream Utility (TSTR).
+2.2. Quy trình luồng thực thi End-to-End 5 bước (5-Step Execution Workflow)
+• Bước 1: Nạp & Tiền xử lý (Data Ingestion & Preprocessing): Hệ thống tự động kiểm tra, tải dữ liệu từ kho waico/SKAB hoặc UCI. Tách tập Train chỉ giữ mẫu Normal. Sử dụng StandardScaler để chuẩn hóa dữ liệu về mean=0, std=1. Điểm kỹ thuật quan trọng: Scaler chỉ 'fit' trên tập Normal Train, sau đó 'transform' sang Test để tránh rò rỉ dữ liệu (Data Leakage).
+• Bước 2: Huấn luyện các mô hình sinh (Generative Model Training): Huấn luyện TVAE, Fence GAN, TabDDPM trên dữ liệu chuẩn hóa của tập Normal. Tự động ghi nhận loss theo từng epoch và lưu trọng số tối ưu (checkpoints/*.pt) vào thư mục riêng biệt của phiên thử nghiệm.
+• Bước 3: Sinh mẫu dị biệt có kiểm soát (Boundary & Anomaly Synthesis): Các mô hình sinh ra 2,000 mẫu bất thường: TVAE lấy mẫu tại đuôi phân phối latent (2.5σ - 3.5σ); Fence GAN sinh tại đường viền dung sai an toàn; TabDDPM dùng Perturbed Reverse Guidance làm lệch các kênh nhạy cảm nhưng giữ tương quan vật lý.
+• Bước 4: Đánh giá đa chiều 3 tầng (3-Tier Benchmark Evaluation): Tầng 1 (Fidelity): Đo KS-Test và Wasserstein Distance để kiểm tra phân phối 1D từng cảm biến.Tầng 2 (Correlation Preservation): Đo sai lệch ma trận Pearson/Spearman qua Frobenius Norm Difference (Δ Fro).Tầng 3 (Downstream Utility - TSTR): Train on Synthetic, Test on Real. Lấy mẫu sinh gán nhãn 1, trộn với Normal Train để huấn luyện RandomForest, XGBoost, sau đó kiểm tra F1-Score trên tập Test thật. So sánh trực tiếp với Baseline (Isolation Forest) và Supervised Oracle.
+• Bước 5: Tự động kết xuất báo cáo & Quản trị thực nghiệm (Artifacts & Isolation): Tự động xuất bảng tổng kết CSV, ghi nhận vào file lịch sử đối chứng 'runs_leaderboard.csv', đồng thời vẽ 5 biểu đồ chất lượng cao (PCA, Heatmap, F1 Bar chart, Loss Curves, Feature Dist) lưu vào figure/<run_name>/ và đồng bộ sang figure/latest/.
+KỊCH BẢN THUYẾT TRÌNH SLIDE-BY-SLIDE DÀNH CHO BẠN
+Dưới đây là kịch bản chi tiết gồm nội dung hiển thị trên slide và lời nói trực tiếp (Speaker Script) để bạn tự tin làm chủ sân khấu.
+Slide 1: Mở đầu & Bối cảnh bài toán
+Nội dung hiển thị trên Slide:• Đề tài: Sinh dữ liệu bất thường dạng bảng cho dữ liệu công nghiệp (Tabular Anomaly Synthesis).• Thách thức thực tế: Máy móc chạy bình thường 99%, lỗi chỉ xuất hiện dưới 3.4%.• Hướng tiếp cận: Huấn luyện mô hình sinh trên dữ liệu bình thường (100% OK) để tự tạo mẫu dị biệt phục vụ bảo trì dự đoán.
+Lời thoại thuyết trình (Speaker Script):"Kính thưa cô và các bạn, hôm nay nhóm em xin trình bày về đề tài 'Sinh dữ liệu bất thường cho thiết bị công nghiệp sử dụng các mô hình học sâu'. Trong môi trường công nghiệp thực tế như các nhà máy sản xuất ô tô hay gia công cơ khí, máy móc vận hành bình thường đến 99% thời gian. Dữ liệu lỗi cực kỳ hiếm, và việc chủ động tạo lỗi vật lý có thể gây hỏng máy hàng triệu đô. Vì vậy, nhóm chúng em đặt ra mục tiêu: Chỉ cần dùng dữ liệu bình thường, áp dụng các mô hình sinh tiên tiến để tự tổng hợp các mẫu lỗi chân thực, từ đó giải quyết triệt để bài toán mất cân bằng dữ liệu cực đoan."
+Slide 2: Bộ dữ liệu 1 - SKAB (Valve1 Circulation Testbed)
+Nội dung hiển thị trên Slide:• Nguồn: Skoltech Anomaly Benchmark (Nga), chuẩn quốc tế về bảo trì dự đoán.• Bản chất: Chuỗi cảm biến vật lý thời gian thực từ trạm tuần hoàn nước khép kín (bơm ly tâm + cụm van Valve1).• 8 cảm biến: Rung động (Acc1, Acc2), Điện (Current, Voltage), Thủy lực (Pressure, Flow Rate), Nhiệt (Temperature, Thermocouple).• Chiến lược chia Zero-Defect: 9 run đầu làm Train (100% normal), 7 run sau làm Test (chứa lỗi kẹt van thực tế).
+Lời thoại thuyết trình (Speaker Script):"Bộ dữ liệu đầu tiên nhóm sử dụng là SKAB Valve1 từ Viện Skoltech. Đây là hệ thống tuần hoàn nước công nghiệp với 8 cảm biến đa chiều đo liên tục tần số 1 Hz. Các cảm biến này bao gồm độ rung động của bơm, dòng điện, áp suất đường ống, nhiệt độ và lưu lượng nước. Điểm đặc biệt trong cách nhóm thiết kế tập dữ liệu là: Nhóm lấy 9 lần chạy đầu tiên, lọc nghiêm ngặt 100% mẫu bình thường để làm tập Train, mô hình hoàn toàn không được nhìn thấy mẫu lỗi nào. 7 lần chạy còn lại được giữ làm tập Test độc lập chứa lỗi kẹt van vật lý thật để kiểm chứng."
+Slide 3: Bộ dữ liệu 2 - AI4I 2020 Predictive Maintenance
+Nội dung hiển thị trên Slide:• Nguồn: UCI Machine Learning Repository (10,000 dòng dữ liệu bảng từ máy phay/tiện CNC).• Mất cân bằng cực đoan: Chỉ 339 mẫu máy hỏng trên 10,000 mẫu (3.39% lỗi).• 5 cảm biến đầu vào: Air temp, Process temp, Rotational speed, Torque, Tool wear.• 5 loại hỏng hóc: Mòn dao (TWF), Tản nhiệt kém (HDF), Công suất (PWF), Quá tải (OSF), Ngẫu nhiên (RNF).
+Lời thoại thuyết trình (Speaker Script):"Bộ dữ liệu thứ hai là AI4I 2020 trên kho UCI, đại diện cho máy phay tiện CNC công nghiệp với 10,000 mẫu. Bộ dữ liệu này thể hiện rõ nét bài toán Extreme Imbalance khi chỉ có 3.39% là sự cố máy. Chúng em sử dụng 5 đặc trưng cảm biến động lực học quan trọng nhất: Nhiệt độ môi trường, Nhiệt độ gia công, Tốc độ quay trục chính, Mô-men xoắn và Độ mòn dao. Tương tự, nhóm chia phân tầng 70-30, và chỉ cho tập Train học trên các mẫu vận hành an toàn không lỗi."
+Slide 4: Kiến trúc hệ thống 'Everything is a Plugin'
+Nội dung hiển thị trên Slide:• Tư duy thiết kế: Module hóa độc lập, không hardcode, dễ dàng mở rộng.• Core Registry: DATASET_REGISTRY, MODEL_REGISTRY, METRIC_REGISTRY.• Khả năng mở rộng: Thêm dataset hay model mới chỉ với 1 Decorator Python.• Vận hành tự động: 1 dòng lệnh CLI chạy xuyên suốt toàn bộ quy trình.
+Lời thoại thuyết trình (Speaker Script):"Bước sang phần thứ hai là Pipeline, nhóm em tự hào khi xây dựng một kiến trúc mã nguồn theo chuẩn công nghiệp gọi là 'Everything is a Plugin'. Toàn bộ code không bị gom cục cứng nhắc trong notebook, mà được tách thành các Registry độc lập: Dataset Registry, Model Registry và Metric Registry. Nếu sau này nhà máy có thêm một dây chuyền mới, nhóm chỉ cần viết một file cấu hình hoặc một class ngắn gắn decorator là hệ thống tự động nạp vào benchmark, chỉ với một câu lệnh terminal duy nhất."
+Slide 5: Đường ống thực nghiệm End-to-End 5 bước
+Nội dung hiển thị trên Slide:• Bước 1: Nạp & Tiền xử lý (Auto-download, Standardize không leak dữ liệu).• Bước 2: Huấn luyện mô hình sinh (TVAE, Fence GAN, TabDDPM) & Lưu checkpoints.• Bước 3: Sinh 2,000 mẫu dị biệt biên có kiểm soát vật lý.• Bước 4: Đánh giá 3 tầng (Fidelity, Correlation Frobenius, Downstream F1 TSTR).• Bước 5: Xuất bảng số liệu tự động và sinh 5 biểu đồ trực quan hóa cao cấp.
+Lời thoại thuyết trình (Speaker Script):"Toàn bộ đường ống thực nghiệm của nhóm vận hành tự động qua 5 bước liên hoàn: Đầu tiên là tiền xử lý và chuẩn hóa StandardScaler, bảo đảm nguyên tắc không rò rỉ dữ liệu. Thứ hai là huấn luyện 3 mô hình sinh trên tập dữ liệu chuẩn hóa và lưu checkpoint. Thứ ba, các mô hình sẽ tự động sinh ra 2,000 mẫu bất thường nằm tại vùng biên phân phối. Thứ tư, pipeline kích hoạt bộ đánh giá 3 tầng: đo độ tương đồng phân phối 1 chiều, đo mức độ giữ gìn liên kết tương quan giữa các cảm biến, và quan trọng nhất là đo F1-Score khi huấn luyện mô hình phân loại thực tế. Cuối cùng, hệ thống tự động lưu bảng tổng kết CSV và xuất 5 biểu đồ trực quan chuẩn báo cáo khoa học. Sau đây, em xin nhường lời cho bạn... sẽ trình bày chi tiết về nguyên lý 3 mô hình sinh và kết quả thực nghiệm!"
+DỰ ĐOÁN CÂU HỎI PHẢN BIỆN CỦA GIẢNG VIÊN & CÁCH TRẢ LỜI
+Câu 1: Tại sao nhóm lại chọn chuẩn hóa StandardScaler mà không dùng MinMaxScaler?
+Trả lời: Thưa cô, trong dữ liệu cảm biến công nghiệp, các giá trị thường tuân theo phân phối Gauss hoặc gần Gauss khi thiết bị hoạt động ổn định. Nếu dùng MinMaxScaler, các điểm giá trị đột biến (outliers tự nhiên hoặc nhiễu đo) sẽ ép khoảng giá trị còn lại bị co cụm lại rất hẹp. StandardScaler giúp giữ nguyên phân phối hình chuông chuẩn N(0, 1), rất tương thích với không gian tiềm ẩn (Latent space) của VAE và quá trình khuếch tán Gaussian của DDPM.
+Câu 2: Nhóm xử lý như thế nào để đảm bảo không bị rò rỉ dữ liệu (Data Leakage) giữa Train và Test?
+Trả lời: Thưa cô, nhóm tuân thủ nghiêm ngặt nguyên lý: Scaler chỉ được 'fit' trên tập Train (100% mẫu bình thường). Sau đó dùng chính các tham số mean và std của tập Train đó để 'transform' tập Test. Tuyệt đối không fit trên toàn bộ dữ liệu ngay từ đầu. Ngoài ra, tập Train hoàn toàn bị loại bỏ các mẫu lỗi, bảo đảm mô hình sinh không học vẹt bất kỳ mẫu lỗi nào trước khi kiểm thử.
+Câu 3: Bộ dữ liệu SKAB là dữ liệu chuỗi thời gian (time-series), tại sao nhóm lại xử lý dưới dạng bảng (tabular)?
+Trả lời: Thưa cô, câu hỏi của cô rất chính xác. Các tác giả của SKAB đã thiết kế các cột cảm biến dưới dạng giá trị hiệu dụng RMS (Root Mean Square) theo từng giây. Ở góc độ vận hành công nghiệp, mỗi chu kỳ quét SCADA cung cấp một vector trạng thái đa chiều tức thời của thiết bị. Việc tiếp cận dưới dạng dữ liệu bảng cho phép các mô hình sinh (như TVAE, TabDDPM) tập trung học mối tương quan vật lý đa biến (cross-sensor correlation) giữa áp suất, dòng điện, rung động mà không bị chi phối bởi độ trễ chuỗi thời gian dài.
+Câu 4: TSTR (Train on Synthetic, Test on Real) là gì và tại sao nó lại chứng minh được giá trị thực tế của pipeline?
+Trả lời: Thưa cô, TSTR là tiêu chuẩn vàng trong đánh giá mô hình sinh. Nhiều mô hình có thể sinh ra dữ liệu nhìn rất giống dữ liệu thật (Fidelity cao) nhưng thực chất chỉ sao chép lại mẫu cũ. Bằng cách huấn luyện một bộ phân loại (như XGBoost) hoàn toàn trên dữ liệu sinh, rồi đem đi kiểm tra trên dữ liệu máy thật 100%, nếu F1-score đạt cao thì chứng tỏ dữ liệu sinh thực sự đã lột tả được bản chất cơ lý của các lỗi máy móc!
