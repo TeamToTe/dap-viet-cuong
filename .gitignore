@@ -26,6 +26,9 @@ experiments/runs/*/checkpoints/*
 # Processed and synthetic caches (keep structure)
 data/processed/*
 !data/processed/.gitkeep
+# Reformatted SKAB data is a curated, versioned artifact - keep it tracked
+!data/processed/skab/
+!data/processed/skab/**
 data/synthetic/*
 !data/synthetic/.gitkeep
 SKAB_data/
